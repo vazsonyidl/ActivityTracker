@@ -1,0 +1,5 @@
+# Ignore database file
+/server/db.sqlite
+
+# Ignore .idea directory
+.idea
