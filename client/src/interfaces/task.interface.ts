@@ -1,7 +1,7 @@
 export interface ITask {
   description: string;
-  startdate: string;
-  enddate: string;
+  start_date: string;
+  end_date: string;
   finished: boolean;
   id?: number;
 }

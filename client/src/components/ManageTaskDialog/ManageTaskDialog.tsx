@@ -10,17 +10,14 @@ import {
 } from '@mui/material';
 import dayjs from 'dayjs';
 
-import {ITask} from '../../interfaces/task.interface';
+import {ITask} from 'interfaces/task.interface';
+import {ManageTaskDialogProps} from './ManageTaskDialog.interface';
 import './ManageTaskDialog.css';
 
-export default function ManageTaskDialog({
-                                           task,
-                                           isOpen,
-                                           handleClose
-                                         }: { task: ITask | null, isOpen: boolean, handleClose: Function }) {
+export default function ManageTaskDialog({task, isOpen, handleClose}: ManageTaskDialogProps) {
   const [description, setDescription] = useState(task?.description || '');
-  const [startDate, setStartDate] = useState(task?.startdate || dayjs().format('YYYY-MM-DD'));
-  const [endDate, setEndDate] = useState(task?.enddate || dayjs().format('YYYY-MM-DD'));
+  const [startDate, setStartDate] = useState(task?.start_date || dayjs().format('YYYY-MM-DD'));
+  const [endDate, setEndDate] = useState(task?.end_date || dayjs().format('YYYY-MM-DD'));
   const [completed, setCompleted] = useState<boolean>(task?.finished || false);
 
   const onDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => setDescription(event.target.value);
@@ -31,11 +28,13 @@ export default function ManageTaskDialog({
 
   const onCompletedChange = (event: React.ChangeEvent<HTMLInputElement>) => setCompleted(event.target.checked);
 
+  const isSaveDisabled = (): boolean => !(!!description.length && !!startDate && !!endDate);
+
   const onSaveClick = () => {
     const updatedTask: ITask = {
       description,
-      startdate: startDate,
-      enddate: endDate,
+      start_date: startDate,
+      end_date: endDate,
       finished: completed
     };
 
@@ -76,6 +75,7 @@ export default function ManageTaskDialog({
             label="Start date"
             aria-label="Start time picker for the task"
             className={'date-input'}
+            disabled={completed}
             InputProps={{inputProps: {max: endDate}}}
             value={startDate}
             onChange={onStartDateChange}
@@ -89,6 +89,7 @@ export default function ManageTaskDialog({
             label="End date"
             aria-label="End time picker for the task"
             className={'date-input'}
+            disabled={completed}
             InputProps={{inputProps: {min: startDate}}}
             value={endDate}
             onChange={onEndDateChange}
@@ -102,7 +103,7 @@ export default function ManageTaskDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={() => handleClose(false)}>Cancel</Button>
-        <Button color={'primary'} onClick={onSaveClick}>Save</Button>
+        <Button color={'primary'} onClick={onSaveClick} disabled={isSaveDisabled()}>Save</Button>
       </DialogActions>
     </Dialog>
   );

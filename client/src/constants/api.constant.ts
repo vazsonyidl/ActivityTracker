@@ -1,1 +1,1 @@
-export const taskAPIPath = '/activity';
+export const taskAPIPath = '/task';
