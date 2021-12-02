@@ -1,0 +1,16 @@
+.hint {
+    display: block;
+    padding: 8px 4px 0;
+    opacity: 0.8;
+    font-size: 0.8rem;
+}
+
+/* Use div to increase specificity and override MUI styles*/
+div.description-input {
+    margin: 16px 0;
+}
+
+/* Use div to increase specificity and override MUI styles*/
+div.date-input {
+    margin: 12px 4px;
+}

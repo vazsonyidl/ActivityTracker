@@ -4,3 +4,6 @@
 # Ignore .idea directory
 .idea
 /server/.idea
+
+# Ignore client node_modules
+client/node_modules

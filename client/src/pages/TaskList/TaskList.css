@@ -1,0 +1,19 @@
+.task-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+.empty-info-container {
+    text-align: center;
+    margin: 24px auto;
+    padding: 16px;
+    width: fit-content;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px #cfcdcd;;
+}
+
+.add-task-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 8px;
+}
