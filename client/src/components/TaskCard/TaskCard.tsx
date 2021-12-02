@@ -4,36 +4,31 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 
+import {deleteTask, updateTask} from 'fetchers/api.fetcher';
+import {ITask} from 'interfaces/task.interface';
 import DeleteDialog from '../DeleteDialog/DeleteDialog';
-import {ITask} from '../../interfaces/task.interface';
 import ManageTaskDialog from '../ManageTaskDialog/ManageTaskDialog';
+import {TaskCardProps} from './TaskCard.interface';
 import './TaskCard.css';
 
-export default function TaskCard({task, onTaskDeleted, onTaskModified}: { task: ITask, onTaskDeleted: Function, onTaskModified: Function }) {
+export default function TaskCard({task, onTaskDeleted, onTaskModified}: TaskCardProps) {
   const [isDeleteDialogOpened, setDeleteDialogOpened] = useState<boolean>(false);
   const [isEditDialogOpened, setEditDialogOpened] = useState<boolean>(false);
 
-  const onDeleteClick = () => setDeleteDialogOpened(true);
+  const onDeleteClick = (): void => setDeleteDialogOpened(true);
 
   const handleDeleteDialogClose = (status: boolean) => {
     if (!status) setDeleteDialogOpened(false);
-    else {
-      fetch(`/activity/${task.id}`, {method: 'DELETE'})
-        .then(result => result.json())
-        .then((deletedTask: ITask) => onTaskDeleted(deletedTask.id));
-    }
+    else deleteTask(task.id)
+          .then((deletedTask: ITask) => onTaskDeleted(deletedTask.id));
   };
 
-  const onEditClick = () => setEditDialogOpened(true);
+  const onEditClick = (): void => setEditDialogOpened(true);
 
-  const handleEditDialogClose = (dialogData: false | ITask) => {
-    if (!dialogData) setEditDialogOpened(dialogData);
+  const handleEditDialogClose = (dialogData: false | ITask): void => {
+    if (!dialogData) setEditDialogOpened(false);
     else {
-      fetch(`/activity/${task.id}`, {
-        method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(dialogData)
-      })
+      updateTask(task.id, dialogData)
         .then(() => onTaskModified())
         .finally(() => setEditDialogOpened(false));
     }
@@ -52,12 +47,14 @@ export default function TaskCard({task, onTaskDeleted, onTaskModified}: { task: 
             <h4>{task.description}</h4>
           </section>
           <section className="time-section">
-            <DateRangeIcon fontSize={'small'} sx={{verticalAlign: 'bottom'}}/> {task.startdate} - {task.enddate}
+            <DateRangeIcon fontSize={'small'} sx={{verticalAlign: 'bottom'}}/> {task.start_date} - {task.end_date}
           </section>
         </CardContent>
         <CardActions>
-          <Button size={'small'} onClick={onEditClick}><EditIcon color={'primary'} fontSize={'small'}/></Button>
-          <Button size={'small'} onClick={onDeleteClick}>
+          <Button size={'small'} onClick={onEditClick} aria-label={'Edit task'}>
+            <EditIcon color={'primary'} fontSize={'small'}/>
+          </Button>
+          <Button size={'small'} onClick={onDeleteClick} aria-label={'Delete task'}>
             <DeleteForeverIcon color={'error'} fontSize={'small'}/>
           </Button>
         </CardActions>
