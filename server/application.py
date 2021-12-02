@@ -1,11 +1,12 @@
-from flask import Flask, request, jsonify
 import os
+from init_app import app
+from models.task import db
+from schemas.task import marshmallow
 
-from models.task import db, Task
-from schemas.task import marshmallow, task_schema, tasks_schema
+# Import routes for task endpoint
+from routes.task_routes import *
 
-# Initialize application
-app = Flask(__name__)
+# Defining basedir
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Config database
@@ -16,9 +17,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 marshmallow.init_app(app)
 
-# Import routes for task endpoint
-import routes.task_routes
-
 # Run app
 if __name__ == '__main__':
-    app.run(host='localhost', port='4040', debug=True)
+    app.run(host='0.0.0.0', port='3000', debug=True)
