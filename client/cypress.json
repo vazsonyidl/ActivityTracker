@@ -1,0 +1,6 @@
+{
+  "baseUrl": "http://localhost:4040",
+  "integrationFolder": "cypress/integration",
+  "testFiles": "**/*.e2e.ts",
+  "fixturesFolder": "cypress/fixtures"
+}

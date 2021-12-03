@@ -42,7 +42,7 @@ export default function ManageTaskDialog({task, isOpen, handleClose}: ManageTask
   };
 
   return (
-    <Dialog open={isOpen} aria-labelledby="dialog-title">
+    <Dialog open={isOpen} aria-labelledby="dialog-title" data-testid='manage-task-dialog'>
       <DialogTitle id="dialog-title">Manage task</DialogTitle>
       <DialogContent>
         <section aria-label={'Section whether the task is completed '}>
@@ -58,6 +58,7 @@ export default function ManageTaskDialog({task, isOpen, handleClose}: ManageTask
             label="Task description"
             aria-label="Description for the task"
             className={'description-input'}
+            InputProps={{inputProps: {'data-testid': 'task-description-input'}}}
             multiline
             fullWidth
             rows={2}
@@ -103,7 +104,7 @@ export default function ManageTaskDialog({task, isOpen, handleClose}: ManageTask
       </DialogContent>
       <DialogActions>
         <Button onClick={() => handleClose(false)}>Cancel</Button>
-        <Button color={'primary'} onClick={onSaveClick} disabled={isSaveDisabled()}>Save</Button>
+        <Button color={'primary'} onClick={onSaveClick} disabled={isSaveDisabled()} data-testid='save-task-btn'>Save</Button>
       </DialogActions>
     </Dialog>
   );

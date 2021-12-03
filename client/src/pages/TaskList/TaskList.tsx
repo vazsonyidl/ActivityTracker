@@ -56,7 +56,7 @@ export default function TaskList() {
             <TaskCard key={task.id} task={task} onTaskDeleted={onTaskDeleted} onTaskModified={onTaskModified}/>)
           : null}
       </section>
-      <section>
+      <section data-testid='empty-info-container'>
         {!tasks.length ?
           <div className={'empty-info-container'}>There is no task created. Click add new to create one!</div> : null}
       </section>

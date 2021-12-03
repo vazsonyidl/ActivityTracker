@@ -41,7 +41,7 @@ export default function TaskCard({task, onTaskDeleted, onTaskModified}: TaskCard
 
   return (
     <>
-      <Card className="card-container" aria-label="Task card container" aria-describedby="task-description">
+      <Card className="card-container" aria-label="Task card container" aria-describedby="task-description" data-testid='task-card'>
         <CardContent>
           <section className="description-section" id="task-description">
             <h4>{task.description}</h4>
@@ -51,7 +51,7 @@ export default function TaskCard({task, onTaskDeleted, onTaskModified}: TaskCard
           </section>
         </CardContent>
         <CardActions>
-          <Button size={'small'} onClick={onEditClick} aria-label={'Edit task'}>
+          <Button size={'small'} onClick={onEditClick} aria-label={'Edit task'} data-testid='edit-task-btn'>
             <EditIcon color={'primary'} fontSize={'small'}/>
           </Button>
           <Button size={'small'} onClick={onDeleteClick} aria-label={'Delete task'}>
