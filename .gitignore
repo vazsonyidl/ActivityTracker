@@ -7,3 +7,10 @@
 
 # Ignore client node_modules
 client/node_modules
+
+# Ignore E2E test videos and screenshot folder
+client/cypress/screenshots
+client/cypress/videos
+
+# Ignore build folder
+client/build
