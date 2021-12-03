@@ -7,6 +7,8 @@ This project was created for managing tasks. The following functionalities are s
 - you can edit a task
 - you can delete a task
 
+There is support for mobile friendly view, tabler view and desktop view.
+
 # API Documentation
 
 Documentation for the REST API endpoints:
@@ -61,6 +63,7 @@ Of course, you can use a production build, then you have to do:
 - Firefox
 - Chrome
 - Edge
+- Safari
 
 There is no ES5 polyfill configured.
 IE11 is not supported.
