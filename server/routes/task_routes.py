@@ -1,4 +1,4 @@
-from __main__ import app, db
+from application import app, db
 from flask import request, jsonify
 from models.task import Task
 from schemas.task import task_schema, tasks_schema
